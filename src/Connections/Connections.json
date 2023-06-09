@@ -1,0 +1,21 @@
+{
+  "d278ecbc-3cf3-47f5-82d3-8848f7796f34": {
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "InvoiceDemo_Connector",
+      "iconUri": "https://az787822.vo.msecnd.net/defaulticons/api-dedicated.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_new-5finvoicedemo-5fconnector-5f28989dd62c41cbc5",
+      "isCustomApiConnection": true,
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "InvoiceDemo_Connector",
+      "InvoiceDemo_Connector_1"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "d278ecbc-3cf3-47f5-82d3-8848f7796f34"
+  }
+}

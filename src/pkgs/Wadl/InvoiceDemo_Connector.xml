@@ -1,0 +1,178 @@
+<application xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:service="https://unitedstates-002.azure-apim.net/apim/new-5finvoicedemo-5fconnector-5f28989dd62c41cbc5" xmlns:siena="http://schemas.microsoft.com/MicrosoftProjectSiena/WADL/2014/11" siena:serviceId="InvoiceDemo_Connector" xmlns="http://wadl.dev.java.net/2009/02">
+  <doc title="InvoiceDemo_Connector" />
+  <grammars>
+    <jsonTypes targetNamespace="https://unitedstates-002.azure-apim.net/apim/new-5finvoicedemo-5fconnector-5f28989dd62c41cbc5" xmlns="http://schemas.microsoft.com/MicrosoftProjectSiena/WADL/2014/11">
+      <string name="Address_street_def" />
+      <string name="Address_city_def" />
+      <string name="Address_postalCode_def" />
+      <string name="Address_country_def" />
+      <object name="Address">
+        <property name="street" type="string" />
+        <property name="city" type="string" />
+        <property name="postalCode" type="string" />
+        <property name="country" type="string" />
+      </object>
+      <integer name="DetailLine_quantity_def" />
+      <object name="DetailLine">
+        <property name="quantity" type="integer" />
+        <property name="product" typeRef="Product" />
+      </object>
+      <string name="Invoice_invoiceNo_def" />
+      <dateTimeString name="Invoice_invoiceDate_def" />
+      <object name="Invoice">
+        <property name="invoiceNo" type="string" />
+        <property name="invoiceDate" typeRef="Invoice_invoiceDate_def" />
+        <property name="client" typeRef="Person" />
+        <property name="seller" typeRef="Seller" />
+        <property name="invoiceDetails" typeRef="InvoiceDetails" />
+      </object>
+      <array typeRef="DetailLine" name="InvoiceDetails_detailLines_def" />
+      <object name="InvoiceDetails">
+        <property name="detailLines" typeRef="InvoiceDetails_detailLines_def" />
+      </object>
+      <integer name="Person_id_def" />
+      <string name="Person_firstName_def" />
+      <string name="Person_lastName_def" />
+      <string name="Person_email_def" />
+      <object name="Person">
+        <property name="id" type="integer" />
+        <property name="firstName" type="string" />
+        <property name="lastName" type="string" />
+        <property name="email" type="string" />
+        <property name="address" typeRef="Address" />
+      </object>
+      <string name="Product_id_def" />
+      <string name="Product_name_def" />
+      <string name="Product_description_def" />
+      <number name="Product_price_def" />
+      <string name="Product_barcode_def" />
+      <string name="Product_color_def" />
+      <object name="Product">
+        <property name="id" type="string" />
+        <property name="name" type="string" />
+        <property name="description" type="string" />
+        <property name="price" type="number" />
+        <property name="barcode" type="string" />
+        <property name="color" type="string" />
+      </object>
+      <integer name="Seller_id_def" />
+      <string name="Seller_firstName_def" />
+      <string name="Seller_lastName_def" />
+      <string name="Seller_email_def" />
+      <integer name="Seller_employeNumber_def" />
+      <string name="Seller_avatarURL_def" />
+      <object name="Seller">
+        <property name="id" type="integer" />
+        <property name="firstName" type="string" />
+        <property name="lastName" type="string" />
+        <property name="email" type="string" />
+        <property name="address" typeRef="Address" />
+        <property name="employeNumber" type="integer" />
+        <property name="avatarURL" type="string" />
+      </object>
+      <array typeRef="Seller" name="Sellers_responses_200_def" />
+      <array typeRef="Invoice" name="Sales_responses_200_def" />
+      <array typeRef="Invoice" name="SalesBySeller_responses_200_def" />
+      <array typeRef="Invoice" name="generate_responses_200_def" />
+      <array typeRef="Invoice" name="generateDataset_responses_200_def" />
+    </jsonTypes>
+  </grammars>
+  <resources siena:authenticationProviderHref="#PowerAppAuth" base="https://unitedstates-002.azure-apim.net/apim/new-5finvoicedemo-5fconnector-5f28989dd62c41cbc5">
+    <resource path="/{connectionId}/Sellers">
+      <param style="template" name="connectionId" type="xs:string" required="true" />
+      <method siena:requiresAuthentication="true" name="GET" id="Sellers" actionName="Sellers" siena:isDeprecated="false">
+        <doc title="Get the list of sellers" />
+        <request />
+        <response>
+          <representation mediaType="application/json" element="service:Sellers_responses_200_def" />
+        </response>
+      </method>
+    </resource>
+    <resource path="/{connectionId}/Seller/{id}">
+      <param style="template" name="connectionId" type="xs:string" required="true" />
+      <param style="template" name="id" type="xs:int" required="true" />
+      <method siena:requiresAuthentication="true" name="GET" id="Seller" actionName="Seller" siena:isDeprecated="false">
+        <doc title="Get a seller&#xA;Get the information of a specific seller." />
+        <request />
+        <response>
+          <representation mediaType="application/json" element="service:Seller" />
+        </response>
+      </method>
+    </resource>
+    <resource path="/{connectionId}/Sales">
+      <param style="template" name="connectionId" type="xs:string" required="true" />
+      <method siena:requiresAuthentication="true" name="GET" id="Sales" actionName="Sales" siena:isDeprecated="false">
+        <doc title="Get the list of sales" />
+        <request />
+        <response>
+          <representation mediaType="application/json" element="service:Sales_responses_200_def" />
+        </response>
+      </method>
+    </resource>
+    <resource path="/{connectionId}/SalesBySeller/{sellerId}">
+      <param style="template" name="connectionId" type="xs:string" required="true" />
+      <param style="template" name="sellerId" type="xs:int" required="true" />
+      <method siena:requiresAuthentication="true" name="GET" id="SalesBySeller" actionName="SalesBySeller" siena:isDeprecated="false">
+        <doc title="Get the list of sales for a specific seller" />
+        <request />
+        <response>
+          <representation mediaType="application/json" element="service:SalesBySeller_responses_200_def" />
+        </response>
+      </method>
+    </resource>
+    <resource path="/{connectionId}/Sale/{invoiceNo}">
+      <param style="template" name="connectionId" type="xs:string" required="true" />
+      <param style="template" name="invoiceNo" type="xs:string" required="true" />
+      <method siena:requiresAuthentication="true" name="GET" id="Sale" actionName="Sale" siena:isDeprecated="false">
+        <doc title="Get a invoice" />
+        <request />
+        <response>
+          <representation mediaType="application/json" element="service:Invoice" />
+        </response>
+      </method>
+    </resource>
+    <resource path="/{connectionId}/SaleDetails/{invoiceNo}">
+      <param style="template" name="connectionId" type="xs:string" required="true" />
+      <param style="template" name="invoiceNo" type="xs:string" required="true" />
+      <method siena:requiresAuthentication="true" name="GET" id="SaleDetails" actionName="SaleDetails" siena:isDeprecated="false">
+        <doc title="Get the details of a invoice" />
+        <request />
+        <response>
+          <representation mediaType="application/json" element="service:InvoiceDetails" />
+        </response>
+      </method>
+    </resource>
+    <resource path="/{connectionId}/generate">
+      <param style="template" name="connectionId" type="xs:string" required="true" />
+      <method siena:requiresAuthentication="true" name="GET" id="generate" actionName="generate" siena:isDeprecated="false">
+        <doc title="Generate a dataset of invoices using de default settings" />
+        <request />
+        <response>
+          <representation mediaType="application/json" element="service:generate_responses_200_def" />
+        </response>
+      </method>
+    </resource>
+    <resource path="/{connectionId}/generateDataset/{startDate}/{endDate}/{teamSize}/{nbInvoices}">
+      <param style="template" name="connectionId" type="xs:string" required="true" />
+      <param style="template" name="startDate" type="xs:string" required="true" />
+      <param style="template" name="endDate" type="xs:string" required="true" />
+      <param style="template" name="teamSize" type="xs:int" required="true" />
+      <param style="template" name="nbInvoices" type="xs:int" required="true" />
+      <method siena:requiresAuthentication="true" name="GET" id="generateDataset" actionName="generateDataset" siena:isDeprecated="false">
+        <doc title="Generate a dataset of invoices using the specified settings" />
+        <request />
+        <response>
+          <representation mediaType="application/json" element="service:generateDataset_responses_200_def" />
+        </response>
+      </method>
+    </resource>
+  </resources>
+  <authenticationProviders xmlns="http://schemas.microsoft.com/MicrosoftProjectSiena/WADL/2014/11">
+    <connectionProvider id="PowerAppAuth" siena:connectionProviderId="shared_new-5finvoicedemo-5fconnector-5f28989dd62c41cbc5" />
+  </authenticationProviders>
+  <template xmlns="http://schemas.microsoft.com/MicrosoftProjectSiena/WADL/2014/11">
+    <variable name="connectionId">
+      <modifyParams style="template" name="connectionId" attribute="fixed" />
+    </variable>
+  </template>
+</application>
